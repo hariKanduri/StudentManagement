@@ -10,7 +10,7 @@ import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import com.student.model.Users;
+import com.student.model.User;
 
 public class ManageUsers {
    private static SessionFactory factory; 
@@ -19,7 +19,7 @@ public class ManageUsers {
          factory = new AnnotationConfiguration().
                    configure().
                    addPackage("com.student.model"). //add package if used.
-                   addAnnotatedClass(Users.class).
+                   addAnnotatedClass(User.class).
                    buildSessionFactory();
       }catch (Throwable ex) { 
          System.err.println("Failed to create sessionFactory object." + ex);
@@ -50,7 +50,7 @@ public class ManageUsers {
       Integer employeeID = null;
       try{
          tx = session.beginTransaction();
-         Users users = new Users();
+         User users = new User();
 
          users.setUserName(userName);
          users.setPassword(password);

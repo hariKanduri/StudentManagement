@@ -9,4 +9,17 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+    <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+    <servlet-name>springrest</servlet-name>
+ <servlet-class>
+  org.springframework.web.servlet.DispatcherServlet
+ </servlet-class>
+ <load-on-startup>1</load-on-startup>
+</servlet>
+
+<servlet-mapping>
+ <servlet-name>springrest</servlet-name>
+ <url-pattern>/StudentManagement/</url-pattern>
+</servlet-mapping>
 </web-app>

@@ -20,6 +20,6 @@
 
 <servlet-mapping>
  <servlet-name>springrest</servlet-name>
- <url-pattern>/StudentManagement/</url-pattern>
+ <url-pattern>/</url-pattern>
 </servlet-mapping>
 </web-app>

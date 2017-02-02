@@ -1,11 +1,59 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
  xmlns:context="http://www.springframework.org/schema/context"
  xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns:tx="http://www.springframework.org/schema/tx"  
  xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/context 
-        http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
  <mvc:annotation-driven/>
 <context:component-scan base-package="com.student.controller" />
+
+
+<mvc:annotation-driven />
+<mvc:default-servlet-handler />
  <bean name="userService" class="com.student.service.UserService"/>
+ <bean name="personsService" class="com.student.service.PersonsService"/>
+ 
+  <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+  destroy-method="close">
+  <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+  <property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:XE" />
+  <property name="username" value="system" />
+  <property name="password" value="password" />
+ </bean>
+ 
+<bean name="personsDao" class="com.student.dao.PersonsDAO"/>
+ 
+ <bean name="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+
+        <property name="dataSource" ref="dataSource" />
+       
+         <!-- <property name="configLocation" value="classpath:hibernate.cfg.xml"/> -->
+         
+       
+        <property name="hibernateProperties">
+        <props>
+           
+            <prop key="hibernate.dialect">org.hibernate.dialect.OracleDialect</prop>
+    		<prop key="show_sql">true</prop>
+    		<prop key="hibernate.connection.pool_size">5</prop> 
+    		<prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext</prop>
+        
+        </props>
+        </property>
+        
+         <property name="annotatedClasses">
+        <list>
+        	<value>com.student.model.Persons</value>
+        </list>
+        </property>
+        <property name="packagesToScan" value="com.student.model" />
+    </bean>
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">  
+  			<property name="sessionFactory" ref="sessionFactory" />  
+	 </bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager"/>
 
 </beans>

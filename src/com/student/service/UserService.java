@@ -19,7 +19,10 @@ public class UserService implements IUserService {
 	@Override
 	public User findById(long id) {
 		// TODO Auto-generated method stub
-		return null;
+		User u = new User();
+		u.setName("Hari Charan");
+		u.setAge(38);
+		return u;
 	}
 
 	@Override
